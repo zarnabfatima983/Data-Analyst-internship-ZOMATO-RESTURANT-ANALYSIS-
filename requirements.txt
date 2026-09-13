@@ -1,0 +1,21 @@
+# ── Core data stack ───────────────────────────────────────────────────────────
+pandas==2.2.3
+numpy==2.2.5
+matplotlib==3.10.3
+seaborn==0.13.2
+scikit-learn==1.6.1
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+jupyter==1.1.1
+notebook==7.4.3
+ipykernel==6.29.5
+
+# ── Streamlit (recommendation app) ───────────────────────────────────────────
+streamlit==1.45.1
+
+# ── Dataset download ──────────────────────────────────────────────────────────
+kagglehub==0.3.12
+requests==2.32.3
+
+# ── Statistics (used in notebooks) ───────────────────────────────────────────
+scipy==1.15.3
