@@ -480,7 +480,7 @@ def inject_css(t: dict) -> None:
         background: {t["accent"]} !important;
         color:      {t["btn_text"]} !important;
     }}
-    /* Fullscreen / wide-mode double-arrow button */
+    /* Fullscreen / wide-mode double-arrow button — show icon only, hide text */
     [data-testid="StyledFullScreenButton"],
     button[title*="fullscreen" i],
     button[title*="wide" i],
@@ -492,6 +492,15 @@ def inject_css(t: dict) -> None:
         color:         {t["text"]} !important;
         opacity:       1 !important;
         visibility:    visible !important;
+    }}
+    /* Hide the text label next to the double-arrow, keep only the SVG icon */
+    [data-testid="StyledFullScreenButton"] span,
+    [data-testid="StyledFullScreenButton"] p,
+    button[title*="fullscreen" i] span,
+    button[title*="wide" i] span,
+    button[aria-label*="wide" i] span,
+    button[aria-label*="fullscreen" i] span {{
+        display: none !important;
     }}
     [data-testid="StyledFullScreenButton"] svg,
     button[title*="fullscreen" i] svg,
@@ -515,7 +524,7 @@ def inject_css(t: dict) -> None:
         color:  {t["text"]} !important;
         stroke: {t["text"]} !important;
     }}
-    /* Recording / status dot (red circle when running) */
+    /* Recording / status dot (red circle when running) — icon only, no text */
     [data-testid="stStatusWidget"],
     [data-testid="stStatusWidget"] *,
     [data-testid="stDecoration"],
@@ -523,6 +532,11 @@ def inject_css(t: dict) -> None:
         color:      {t["text"]} !important;
         opacity:    1 !important;
         visibility: visible !important;
+    }}
+    /* Hide the "running…" text label, keep only the dot/icon */
+    [data-testid="stStatusWidget"] span,
+    [data-testid="stStatusWidget"] p {{
+        display: none !important;
     }}
     [data-testid="stStatusWidget"] svg,
     [data-testid="stDecoration"] svg {{
