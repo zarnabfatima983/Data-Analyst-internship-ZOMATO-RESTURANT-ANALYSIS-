@@ -12,14 +12,21 @@ Run with:
     streamlit run app.py
 """
 
-import sys, os
-sys.path.insert(0, os.path.dirname(__file__))
+import sys
+import os
+from pathlib import Path
+
+# ── Make sure src/ is importable regardless of how/where Streamlit starts ─────
+_ROOT = Path(__file__).resolve().parent   # = project root (where app.py lives)
+sys.path.insert(0, str(_ROOT))
+
+# ── Matplotlib must use non-interactive Agg backend BEFORE any other import ───
+import matplotlib
+matplotlib.use("Agg")
 
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -826,7 +833,11 @@ def style_fig(fig: plt.Figure, t: dict) -> None:
 @st.cache_data(show_spinner="Loading and cleaning dataset …")
 def get_data():
     from src.data_cleaning import load_clean
-    return load_clean()
+    try:
+        return load_clean()
+    except FileNotFoundError as e:
+        st.error(str(e))
+        st.stop()
 
 
 @st.cache_resource(show_spinner="Building recommendation engine …")

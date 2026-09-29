@@ -21,13 +21,16 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 import os
+from pathlib import Path
 
 # ── Global style ──────────────────────────────────────────────────────────────
 sns.set_theme(style="whitegrid", palette="muted", font_scale=1.1)
 PALETTE_SEQ  = "viridis"
 PALETTE_CAT  = "Set2"
 PALETTE_DIV  = "RdYlGn"
-FIG_DIR      = os.path.join("notebooks", "figures")   # optional save location
+# Anchor figures dir to project root so it works regardless of CWD
+_ROOT   = Path(__file__).resolve().parent.parent
+FIG_DIR = str(_ROOT / "notebooks" / "figures")
 
 
 def _save(fig: plt.Figure, filename: str | None) -> None:

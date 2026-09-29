@@ -21,12 +21,15 @@ env/
 *.ipynb_checkpoints
 
 # ── Streamlit ─────────────────────────────────────────────────────────────────
-.streamlit/
+# Track .streamlit/config.toml (needed for cloud).
+# Ignore only secrets file.
+.streamlit/secrets.toml
 
-# ── Data — raw CSV is large; processed can be regenerated ────────────────────
-# Keep folder structure but ignore large files
-data/raw/*.csv
-data/processed/*.csv
+# ── Data ─────────────────────────────────────────────────────────────────────
+# Keep the cleaned dataset in the repo (required for Streamlit Cloud).
+# Ignore only the large raw source file.
+data/raw/zomato.csv
+# data/processed/zomato_cleaned.csv  ← intentionally NOT ignored (needed for deploy)
 
 # ── OS / IDE ──────────────────────────────────────────────────────────────────
 .DS_Store

@@ -21,13 +21,17 @@ Cleaning steps
 """
 
 import os
+from pathlib import Path
 import pandas as pd
 import numpy as np
 
-# ── Paths ─────────────────────────────────────────────────────────────────────
-RAW_PATH       = os.path.join("data", "raw",       "zomato.csv")
-PROCESSED_DIR  = os.path.join("data", "processed")
-PROCESSED_PATH = os.path.join(PROCESSED_DIR, "zomato_cleaned.csv")
+# ── Paths — anchored to THIS file's location so they work regardless of CWD ──
+# src/data_cleaning.py lives at  <project_root>/src/data_cleaning.py
+# so Path(__file__).resolve().parent.parent  ==  <project_root>
+_ROOT          = Path(__file__).resolve().parent.parent
+RAW_PATH       = str(_ROOT / "data" / "raw"       / "zomato.csv")
+PROCESSED_DIR  = str(_ROOT / "data" / "processed")
+PROCESSED_PATH = str(_ROOT / "data" / "processed" / "zomato_cleaned.csv")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -208,10 +212,23 @@ def clean(raw_path: str = RAW_PATH, save: bool = True) -> pd.DataFrame:
 def load_clean(path: str = PROCESSED_PATH) -> pd.DataFrame:
     """
     Load the already-cleaned CSV from data/processed/.
-    If it doesn't exist yet, run the full cleaning pipeline first.
+    On Streamlit Cloud the processed CSV is committed to the repo, so this
+    path will always exist.  If it is somehow missing, try running the full
+    cleaning pipeline from the raw CSV.  If that is also missing, raise a
+    clear, actionable error instead of an opaque traceback.
     """
     if not os.path.exists(path):
-        print("[load_clean] Processed file not found — running cleaning pipeline …")
+        print("[load_clean] Processed file not found — attempting cleaning pipeline …")
+        if not os.path.exists(RAW_PATH):
+            raise FileNotFoundError(
+                f"\n\n❌  Dataset not found.\n"
+                f"    Expected: {path}\n"
+                f"    Also tried: {RAW_PATH}\n\n"
+                "    To fix:\n"
+                "    1. Run  python download_data.py  to download the dataset.\n"
+                "    2. Then run  python src/data_cleaning.py  to generate the cleaned CSV.\n"
+                "    3. Commit  data/processed/zomato_cleaned.csv  to your repository.\n"
+            )
         return clean()
     df = pd.read_csv(path)
     print(f"[load_clean] Loaded {df.shape[0]} rows × {df.shape[1]} cols from {path}")

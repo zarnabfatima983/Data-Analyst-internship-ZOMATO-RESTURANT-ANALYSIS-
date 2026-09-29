@@ -1,21 +1,20 @@
-# ── Core data stack ───────────────────────────────────────────────────────────
+# ── Zomato Analytics Dashboard — Streamlit Community Cloud requirements ───────
+# Generated from actual installed versions. Only packages the app imports.
+# Notebooks use scipy but the deployed app does not — included for completeness.
+
+# Core data
 pandas==2.2.3
-numpy==2.2.5
-matplotlib==3.10.3
+numpy==1.26.4
+
+# Visualisation
+matplotlib==3.9.4
 seaborn==0.13.2
-scikit-learn==1.6.1
 
-# ── Jupyter ───────────────────────────────────────────────────────────────────
-jupyter==1.1.1
-notebook==7.4.3
-ipykernel==6.29.5
+# Machine learning & NLP (TF-IDF, cosine similarity, regression models)
+scikit-learn==1.5.2
 
-# ── Streamlit (recommendation app) ───────────────────────────────────────────
-streamlit==1.45.1
+# Statistics (t-test in notebooks; harmless to include)
+scipy==1.13.1
 
-# ── Dataset download ──────────────────────────────────────────────────────────
-kagglehub==0.3.12
-requests==2.32.3
-
-# ── Statistics (used in notebooks) ───────────────────────────────────────────
-scipy==1.15.3
+# Dashboard
+streamlit==1.40.2
