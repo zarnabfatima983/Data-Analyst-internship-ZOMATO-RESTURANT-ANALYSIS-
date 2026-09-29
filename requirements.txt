@@ -1,20 +1,7 @@
-# ── Zomato Analytics Dashboard — Streamlit Community Cloud requirements ───────
-# Generated from actual installed versions. Only packages the app imports.
-# Notebooks use scipy but the deployed app does not — included for completeness.
-
-# Core data
-pandas==2.2.3
-numpy==1.26.4
-
-# Visualisation
-matplotlib==3.9.4
-seaborn==0.13.2
-
-# Machine learning & NLP (TF-IDF, cosine similarity, regression models)
-scikit-learn==1.5.2
-
-# Statistics (t-test in notebooks; harmless to include)
-scipy==1.13.1
-
-# Dashboard
-streamlit==1.40.2
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+scipy
+streamlit
